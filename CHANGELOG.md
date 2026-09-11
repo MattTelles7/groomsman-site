@@ -2,6 +2,12 @@
 
 ## 2026-09-11
 
+- Added a compact calendar control for both days, Apple/Google subscriptions,
+  a copyable subscription URL, and a clearly labeled one-time download. Builds
+  generate a shared iCalendar feed with stable event IDs and sourced addresses.
+- Confirmed 5:15 PM rehearsal arrival, 8:00 AM apartment meetup, padded
+  11:00 AM departure, rehearsal dinner, and the bus for the whole wedding party.
+  Car retrieval remains pending. Corrected the groom’s name to Matt.
 - Added the Thursday rehearsal and Saturday wedding field guide with all
   provided groomsmen schedule entries and copyable, sourced venue addresses.
 - Added the September 26 wedding countdown, per-activity timing, animated

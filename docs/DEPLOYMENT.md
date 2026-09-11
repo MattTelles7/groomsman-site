@@ -91,10 +91,34 @@ without `:3000`; the built-in container is an HTTP origin, not a TLS terminator.
 
 ### Caching
 
-Nginx sends `Cache-Control: no-store` for HTML and `theme.js`. Fingerprinted
+Nginx sends `Cache-Control: no-store` for HTML, `theme.js`, and `/schedule.ics`. Fingerprinted
 `/assets/` files can be cached for a year. Avoid a Cloudflare “Cache Everything”
 rule that overrides the HTML policy. There is no service worker. Refresh a page
 after a schedule update; already-open tabs retain the old loaded schedule.
+
+### Calendar feed
+
+The normal Docker build generates `/schedule.ics`; Nginx serves it as
+`text/calendar; charset=utf-8`. No separate calendar process is needed. The
+Apple and Google buttons use the hostname guests are visiting, so share the
+public HTTPS URL, not the VM’s LAN address.
+
+The calendar URL must be reachable by calendar clients without authentication,
+an interactive Cloudflare challenge, or an HTML interstitial. If you add such
+rules later, permit calendar access to this path and preserve its no-store
+cache policy. Keep the hostname and path stable after people subscribe.
+
+Check the **public hostname** after deployment:
+
+```bash
+curl --fail -D /tmp/calendar-headers -o /tmp/schedule.ics https://YOUR_HOSTNAME/schedule.ics
+cat /tmp/calendar-headers
+head -n 15 /tmp/schedule.ics
+```
+
+Expect status 200, `Content-Type: text/calendar`, `Cache-Control: no-store`, and
+`BEGIN:VCALENDAR` content. The calendar apps still control their own refresh
+timing; no-store does not force immediate subscription updates.
 
 ### VM settings
 

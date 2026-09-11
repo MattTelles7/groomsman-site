@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, LayoutGroup, MotionConfig, motion, useReducedMotion } from 'motion/react';
 import { ArrowDown, ArrowRight, Bus, Camera, Car, Check, ChevronDown, Church, Clock3, Coffee, Copy, Heart, MapPin, Monitor, Moon, Shirt, Sun, Users, Wine, X } from 'lucide-react';
-import { addressFor, days, events, venues, wedding } from './data/schedule';
+import { addressFor, days, events, logistics, venues, wedding } from './data/schedule';
 import type { DayId, LocationId, ScheduleEvent } from './data/schedule';
 import { countdown, currentEvent, defaultDay, eventState, eventStatus, localDate, nextEvent, timeUntil } from './lib/time';
+import { CalendarAdd } from './components/CalendarAdd';
 
 const icons = { bus: Bus, camera: Camera, car: Car, church: Church, clock: Clock3, coffee: Coffee, shirt: Shirt, users: Users, wine: Wine };
 type Theme = 'system' | 'light' | 'dark';
@@ -207,14 +208,14 @@ export default function App() {
     <a className="skip-link" href="#schedule">Skip to the schedule</a>
     <div className="site-shell">
       <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="The Groom’s Crew, back to top"><span className="monogram">c.</span><span>The groomsmen edition</span></a>
+        <a className="wordmark" href="#top" aria-label="The Groom’s Crew, back to top"><span className="monogram">{wedding.groom[0].toLowerCase()}.</span><span>The groomsmen edition</span></a>
         <div className="header-right"><span className="header-date">09.26.26</span><span className="header-rule" /><ThemeSwitch /></div>
       </header>
 
       <main id="top">
         <section className="hero" aria-labelledby="page-title">
           <motion.div className="hero-copy" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-            <div className="eyebrow hero-eyebrow"><span className="tiny-rule" />Chris’s wedding weekend</div>
+            <div className="eyebrow hero-eyebrow"><span className="tiny-rule" />{wedding.groom}’s wedding weekend</div>
             <h1 id="page-title">The groom’s <em>crew.</em></h1>
             <p>Your people. Your places. The plan for a pretty big day.</p>
           </motion.div>
@@ -247,7 +248,7 @@ export default function App() {
               <span className="day-name">{item.label}</span><span className="day-date">Sep {item.number}</span>
             </button>)}
           </div>
-          <span className="timezone"><Clock3 size={14} />All times Eastern</span>
+          <div className="schedule-actions"><span className="timezone"><Clock3 size={14} />All times Eastern</span><CalendarAdd /></div>
         </div>
 
         <AnimatePresence mode="wait" initial={false}>
@@ -268,13 +269,14 @@ export default function App() {
         <section className="good-to-know" aria-labelledby="notes-title">
           <div className="notes-intro"><span className="eyebrow">A few things to keep in mind</span><h2 id="notes-title">The little details.</h2><p>We’ll update the plan as the last pieces fall into place.</p></div>
           <div className="notes-list">
-            <details open><summary><Car size={19} /><span>The driving plan</span><ChevronDown size={16} /></summary><div className="detail-content">Plan to drive or carpool to the church and be there by <strong>12:15 PM</strong>. The apartment departure time and transport after Mass are still being confirmed. Ben Gomez will ride the bus after Mass.</div></details>
-            <details><summary><Bus size={19} /><span>The bus is booked</span><ChevronDown size={16} /></summary><div className="detail-content">Savannah Nite / Empire Corporate Trans, <strong>bus #61</strong>. Use the lower lot at Ertel. Leave Ertel at 5:20 PM, 5:30 latest; bus service ends at 6:00 PM.</div></details>
-            <details><summary><MapPin size={19} /><span>Finding the right spot</span><ChevronDown size={16} /></summary><div className="detail-content">At St. Joseph, meet in the <strong>school behind the church</strong>, not the PLC. The Ars Café listing is 6988 N Dearborn Rd, Unit 100, Guilford; Chris still needs to confirm the dinner location. Ertel notes that some GPS routes can be inaccurate; check <a href="https://ertelcellars.com/hours-directions/" target="_blank" rel="noreferrer">the winery’s directions</a> if needed.</div></details>
+            <details open><summary><Car size={19} /><span>The morning drive</span><ChevronDown size={16} /></summary><div className="detail-content">{logistics.morning}</div></details>
+            <details><summary><Bus size={19} /><span>Everyone on the bus</span><ChevronDown size={16} /></summary><div className="detail-content">{logistics.bus}</div></details>
+            <details open><summary><Car size={19} /><span>Getting your cars back · to come</span><ChevronDown size={16} /></summary><div className="detail-content">{logistics.carRetrieval}</div></details>
+            <details><summary><MapPin size={19} /><span>Finding the right spot</span><ChevronDown size={16} /></summary><div className="detail-content">{logistics.locations} Check <a href="https://ertelcellars.com/hours-directions/" target="_blank" rel="noreferrer">the winery’s directions</a> if needed.</div></details>
           </div>
         </section>
       </main>
-      <footer><span className="footer-signoff">Here’s to a really good day.</span><span>Chris’s crew <Heart size={12} /> September 26, 2026</span><a href="#top">Back to top ↑</a></footer>
+      <footer><span className="footer-signoff">Here’s to a really good day.</span><span>{wedding.groom}’s crew <Heart size={12} /> September 26, 2026</span><a href="#top">Back to top ↑</a></footer>
     </div>
     <div className="sr-only" role="status" aria-live="polite">{announcement}</div>
     <AnimatePresence>{copied && <motion.div className="copy-toast" initial={{ opacity: 0, y: 25, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 15 }}><span><Check size={17} /></span><div>Address copied<small>Ready for your favorite maps app.</small></div></motion.div>}</AnimatePresence>

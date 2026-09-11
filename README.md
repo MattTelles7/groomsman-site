@@ -1,8 +1,9 @@
 # The Groom’s Crew
 
-Chris’s groomsmen field guide for **September 24 & 26, 2026**. A responsive,
+Matt’s groomsmen field guide for **September 24 & 26, 2026**. A responsive,
 animated schedule with pastel cards, an Eastern-time wedding countdown, and
-one-tap address copying. Runs on one Debian or Ubuntu VM using Docker Compose.
+one-tap address copying, and a calendar subscription for the whole weekend.
+Runs on one Debian or Ubuntu VM using Docker Compose.
 
 The deployment flow follows the **Mark-wedding-site** repository: `main` for
 releases, `develop` for VM testing, and repeatable install/update commands.
@@ -88,6 +89,7 @@ Edit **[src/data/schedule.ts](src/data/schedule.ts)**:
 - `wedding`: wedding date, ceremony instant, and timezone.
 - `venues`: addresses reused by every matching card.
 - `events`: times, notes, colors/categories, and activity intervals.
+- `logistics`: morning drive, bus, and remaining car-retrieval notes.
 - `days`: Thursday and Saturday date labels.
 
 The countdown targets **Saturday, September 26 at 2:00 PM Eastern**, when Mass
@@ -107,6 +109,31 @@ when a phone wakes or the tab comes back into focus.
 Click or tap any location card to copy its full address. On plain HTTP or if
 clipboard access is blocked, a dialog selects the address for manual copying.
 Updates appear on reload; a page already open keeps its loaded schedule.
+
+## Add the weekend to a calendar
+
+The **Add to calendar** button above the blocks offers Apple and Google Calendar
+subscriptions for **both days together**. A one-time `.ics` download is available
+too, clearly labeled as a snapshot that will not update.
+
+Every build generates **`/schedule.ics`** from the same schedule data as the site.
+Run the normal VM update after editing the plan: the website and calendar feed
+are deployed together. Event IDs stay stable so changes can update existing
+calendar entries. Keep the public hostname and `/schedule.ics` URL unchanged
+after people subscribe. No Google account, API key, or extra service is required
+to publish the feed.
+
+Subscribers see changes when their calendar app refreshes; this is not instant
+sync. The website is the latest day-of reference. Google requires initial
+subscription in a **computer web browser**, then shows the calendar on phones.
+The dialog includes a copyable URL and manual instructions for both platforms.
+See [Google’s subscription instructions](https://support.google.com/calendar/answer/37100?hl=en),
+[Apple’s iPhone instructions](https://support.apple.com/guide/iphone/use-multiple-calendars-iph3d1110d4/ios),
+and [Apple’s refresh settings](https://support.apple.com/guide/calendar/refresh-calendars-icl1024/mac).
+
+Share the public HTTPS site when subscribing. A localhost/LAN address cannot be
+fetched by Google. The feed must be publicly reachable without a login or
+Cloudflare challenge; see [deployment notes](docs/DEPLOYMENT.md#calendar-feed).
 
 See [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md) for examples and
 [docs/PLANNING.md](docs/PLANNING.md) for outstanding decisions and address sources.
@@ -173,5 +200,5 @@ reports failure and does not claim the deployment succeeded. See
 [deployment troubleshooting](docs/DEPLOYMENT.md#troubleshooting) for recovery.
 
 The site asks search engines not to index it, but that is not authentication.
-Only publish content you want people with the link to read. Bus payment notes
-remain in repository documentation and are not included in the web bundle.
+Only publish content you want people with the link to read. Bus payment records
+and other booking administration stay outside this public repository.

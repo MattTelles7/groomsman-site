@@ -29,5 +29,10 @@ jobs:
           curl --fail http://localhost:3000/ | grep -q 'The Groom'
           test "$(docker compose exec -T app id -u)" != 0
           curl -sI http://localhost:3000/ | grep -qi 'cache-control: no-store'
+          curl --fail -D /tmp/calendar-headers -o /tmp/schedule.ics http://localhost:3000/schedule.ics
+          grep -qi 'content-type: text/calendar' /tmp/calendar-headers
+          grep -qi 'cache-control: no-store' /tmp/calendar-headers
+          grep -q 'BEGIN:VCALENDAR' /tmp/schedule.ics
+          grep -q 'UID:mass@groomsman-site.matt-telles' /tmp/schedule.ics
       - if: always()
         run: docker compose logs --tail=50 && docker compose down

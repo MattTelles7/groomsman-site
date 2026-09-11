@@ -2,6 +2,7 @@
 
 The single content source is `src/data/schedule.ts`. Edit locally, run
 `npm run check`, commit, push to the deployment branch, and run the VM updater.
+The supporting transport notes live in its `logistics` object.
 
 ## Change a time
 
@@ -37,7 +38,7 @@ Update the corresponding `venues` entry once. All associated cards use it:
 
 ```ts
 apartment: {
-  name: 'Chris’s apartment',
+  name: 'Matt’s apartment',
   street: '60 Clubhouse Ln, Apt 60A',
   city: 'Fairfield, OH 45014',
 }
@@ -71,6 +72,25 @@ The automatically selected day follows the Indiana calendar if the tab stays
 open overnight. Manually choosing a day keeps that choice for the session.
 TBD activities become past entries once their calendar date has passed.
 
+## Calendar subscriptions
+
+The Vite build emits `dist/schedule.ics` using `src/lib/calendar.ts`; do not edit
+the generated file. The development server serves the same feed and picks up
+schedule edits. The existing VM updater rebuilds and deploys it with the site.
+
+Keep each `events[].id` stable when editing titles, times, or locations: it is
+the calendar UID. Publications refresh `DTSTAMP` and `LAST-MODIFIED` at build
+time. UTC calendar timestamps represent the same instants as the site’s Eastern
+times; guest calendar apps display them in their configured timezone. Unknown
+starts are omitted, approximate entries are marked tentative, and milestones
+have no fabricated end time. Address and campus notes carry through to events.
+
+The subscription URL is `/schedule.ics` on the current origin. Keep the public
+hostname and path stable. Google and Apple choose when to refresh; the feed’s
+one-hour refresh hint is not a guarantee. A downloaded/imported file is only a
+snapshot. Do not promise instant updates or ask guests to repeatedly import
+files to refresh their schedule.
+
 ## Review checklist
 
 - Desktop and phone: all notes/addresses visible, no horizontal scroll.
@@ -78,7 +98,12 @@ TBD activities become past entries once their calendar date has passed.
 - Copy a church, apartment, and travel destination address.
 - Block clipboard access: verify the selected-address dialog and Escape.
 - Switch Thursday/Saturday with touch and keyboard arrow keys.
-- Confirm the live border switches at 12:15, 12:30, 14:00, and 15:00 Eastern.
+- Open Add to calendar on desktop and phone; check keyboard focus, Escape,
+  subscription links, manual URL copying, and the snapshot download.
+- Fetch `/schedule.ics` after the VM update: it should have `text/calendar`
+  content type, `no-store` caching, and the latest event details.
+- Confirm the live border starts Thursday at 17:15 and switches Saturday at
+  08:00, 11:00, 12:15, 12:30, 14:00, and 15:00 Eastern.
 - Verify the countdown stops at zero when Mass starts, and the schedule wraps
   after the 18:00 bus milestone.
 - Reduced motion, 200% text/zoom, and visible keyboard focus.
