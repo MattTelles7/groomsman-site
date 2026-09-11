@@ -2,13 +2,16 @@ import { addressFor, events, venues, wedding } from '../data/schedule.ts';
 import type { ScheduleEvent } from '../data/schedule.ts';
 
 export const CALENDAR_PATH = '/schedule.ics';
+// Google no longer reliably accepts a prefilled `cid` subscription link. Its
+// supported path is the calendar settings screen, where guests paste the feed.
+export const GOOGLE_ADD_BY_URL = 'https://calendar.google.com/calendar/u/0/r/settings/addbyurl';
 
 export function calendarLinks(origin: string) {
   const feed = new URL(CALENDAR_PATH, origin).href;
   return {
     feed,
     apple: feed.replace(/^https?:/, 'webcal:'),
-    google: `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(feed)}`,
+    googleSetup: GOOGLE_ADD_BY_URL,
   };
 }
 
