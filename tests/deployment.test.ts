@@ -100,6 +100,21 @@ test('VM switches branches and retains its existing settings', (t) => {
   assert.equal(readFileSync(join(f.checkout, '.env'), 'utf8'), 'APP_PORT=4000\n');
 });
 
+test('installer repairs an existing checkout with no local main branch', (t) => {
+  const f = fixture(t);
+  rmSync(f.checkout, { recursive: true, force: true });
+  git(f.origin, 'symbolic-ref', 'HEAD', 'refs/heads/main');
+  execFileSync('git', ['init', '--initial-branch=placeholder', f.checkout], { env: gitEnv, stdio: 'ignore' });
+  git(f.checkout, 'remote', 'add', 'origin', f.origin);
+
+  const result = f.update();
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(git(f.checkout, 'branch', '--show-current'), 'main');
+  assert.equal(git(f.checkout, 'rev-parse', 'HEAD'), git(f.source, 'rev-parse', 'HEAD'));
+  assert.equal(git(f.checkout, 'config', 'branch.main.remote'), 'origin');
+  assert.equal(git(f.checkout, 'config', 'branch.main.merge'), 'refs/heads/main');
+});
+
 test('VM rejects an unexpected origin without changing the checkout', (t) => {
   const f = fixture(t);
   const before = git(f.checkout, 'rev-parse', 'HEAD');

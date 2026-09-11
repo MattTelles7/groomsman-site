@@ -32,7 +32,13 @@ update_existing_checkout() {
     git -C "$INSTALL_DIR" checkout "$BRANCH"
     git -C "$INSTALL_DIR" merge --ff-only "origin/$BRANCH"
   else
-    git -C "$INSTALL_DIR" checkout --track -b "$BRANCH" "origin/$BRANCH"
+    # A repository initialized before this installer may not have origin's
+    # standard fetch refspec. --track rejects that valid fetched ref on some
+    # Git versions, so create the branch from the explicit ref and configure
+    # its upstream ourselves.
+    git -C "$INSTALL_DIR" checkout -B "$BRANCH" "refs/remotes/origin/$BRANCH"
+    git -C "$INSTALL_DIR" config "branch.$BRANCH.remote" origin
+    git -C "$INSTALL_DIR" config "branch.$BRANCH.merge" "refs/heads/$BRANCH"
   fi
 }
 
