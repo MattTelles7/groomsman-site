@@ -2,6 +2,8 @@
 
 ## 2026-09-11
 
+- Clarified Google Calendar setup: the site now confirms copying before showing
+  the Google page and states the one required paste step.
 - Replaced Google’s unreliable prefilled calendar shortcut with its supported
   From URL setup flow, after it showed an “Unable to add calendar” error.
 - Added a compact calendar control for both days, Apple/Google subscriptions,
