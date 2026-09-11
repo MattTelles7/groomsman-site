@@ -4,6 +4,7 @@ import { ArrowDown, ArrowRight, Bus, Camera, Car, Check, ChevronDown, Church, Cl
 import { addressFor, days, events, logistics, venues, wedding } from './data/schedule';
 import type { DayId, LocationId, ScheduleEvent } from './data/schedule';
 import { countdown, currentEvent, defaultDay, eventState, eventStatus, localDate, nextEvent, timeUntil } from './lib/time';
+import { CalendarAdd } from './components/CalendarAdd';
 
 const icons = { bus: Bus, camera: Camera, car: Car, church: Church, clock: Clock3, coffee: Coffee, shirt: Shirt, users: Users, wine: Wine };
 type Theme = 'system' | 'light' | 'dark';
@@ -247,7 +248,7 @@ export default function App() {
               <span className="day-name">{item.label}</span><span className="day-date">Sep {item.number}</span>
             </button>)}
           </div>
-          <span className="timezone"><Clock3 size={14} />All times Eastern</span>
+          <div className="schedule-actions"><span className="timezone"><Clock3 size={14} />All times Eastern</span><CalendarAdd /></div>
         </div>
 
         <AnimatePresence mode="wait" initial={false}>
