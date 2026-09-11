@@ -8,16 +8,22 @@ export function CalendarAdd() {
   const [message, setMessage] = useState('');
   const links = calendarLinks(window.location.origin);
 
-  async function copyLink() {
+  async function copyLink(successMessage = 'Calendar link copied.') {
     try {
       if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
       await navigator.clipboard.writeText(links.feed);
-      setMessage('Calendar link copied.');
+      setMessage(successMessage);
     } catch {
       input.current?.focus();
       input.current?.select();
       setMessage('Link selected. Choose Copy to copy it manually.');
     }
+  }
+
+  function openGoogleSetup() {
+    // Open synchronously to keep this user-initiated tab from being blocked.
+    window.open(links.googleSetup, '_blank', 'noopener,noreferrer');
+    void copyLink('Calendar link copied. Paste it into Google Calendar.');
   }
 
   return <>
@@ -34,18 +40,18 @@ export function CalendarAdd() {
 
       <div className="calendar-options">
         <a className="calendar-option" href={links.apple}><CalendarPlus size={21} /><span>Apple Calendar<small>Subscribe on iPhone, iPad, or Mac</small></span><ArrowUpRight size={17} /></a>
-        <a className="calendar-option" href={links.google} target="_blank" rel="noreferrer"><CalendarPlus size={21} /><span>Google Calendar<small>Subscribe in a computer browser</small></span><ArrowUpRight size={17} /></a>
+        <button className="calendar-option" type="button" onClick={openGoogleSetup}><CalendarPlus size={21} /><span>Google Calendar<small>Copies the link, then opens “From URL”</small></span><ArrowUpRight size={17} /></button>
       </div>
       <p className="calendar-sync-note"><RefreshCw size={15} /><span>Subscribe once to receive future changes when your calendar refreshes. Updates can take time; check this site for the latest day-of plan.</span></p>
 
       <details className="calendar-help">
         <summary><span>Need a hand adding it?</span><ChevronDown size={16} /></summary>
-        <p><strong>Google:</strong> on a computer, open Calendar → Other calendars + → From URL, then paste the link below. It will also appear in your phone’s Google Calendar.</p>
+        <p><strong>Google:</strong> this button copies the link and opens Calendar’s “From URL” screen in a computer browser. Paste it there; it will then appear in your phone’s Google Calendar too.</p>
         <p><strong>iPhone:</strong> open Calendar → Calendars → Add Calendar → Add Subscription Calendar, then paste this link.</p>
         <label htmlFor="calendar-url">Calendar subscription link</label>
         <div className="calendar-copy-row">
           <input ref={input} id="calendar-url" readOnly value={links.feed} onFocus={(e) => e.target.select()} />
-          <button type="button" onClick={copyLink} aria-label="Copy calendar subscription link">{message === 'Calendar link copied.' ? <Check size={18} /> : <Copy size={18} />}</button>
+          <button type="button" onClick={() => { void copyLink(); }} aria-label="Copy calendar subscription link">{message === 'Calendar link copied.' ? <Check size={18} /> : <Copy size={18} />}</button>
         </div>
         <p className="calendar-copy-status" role="status">{message}</p>
       </details>

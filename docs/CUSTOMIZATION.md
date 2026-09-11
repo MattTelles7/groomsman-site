@@ -91,6 +91,10 @@ one-hour refresh hint is not a guarantee. A downloaded/imported file is only a
 snapshot. Do not promise instant updates or ask guests to repeatedly import
 files to refresh their schedule.
 
+Google Calendar’s `cid` prefilled-subscription shortcut is unreliable. The UI
+copies the feed first and opens Google Calendar’s official **From URL** settings
+screen instead. Keep that flow: users must paste the link once on a computer.
+
 ## Review checklist
 
 - Desktop and phone: all notes/addresses visible, no horizontal scroll.

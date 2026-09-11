@@ -182,7 +182,7 @@
   .calendar-dialog h2 { font-size: clamp(26px, 4vw, 31px); letter-spacing: -0.9px; }
   .calendar-dialog h2 em { font-weight: inherit; }
   .calendar-options { display: flex; flex-direction: column; gap: 10px; margin: 24px 0 18px; }
-  .calendar-option { display: flex; align-items: center; gap: 13px; padding: 16px; border-radius: 12px; background: var(--prep); text-decoration: none; transition: background-color 180ms; }
+  .calendar-option { width: 100%; display: flex; align-items: center; gap: 13px; padding: 16px; border-radius: 12px; background: var(--prep); color: var(--ink); text-align: left; text-decoration: none; transition: background-color 180ms; }
   .calendar-option:nth-child(2) { background: var(--travel); }
   .calendar-option:hover { background: var(--essential); }
   .calendar-option > span { flex: 1; font-weight: 700; font-size: 15px; }

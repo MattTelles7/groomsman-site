@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ICAL from 'ical.js';
-import { calendarLinks, renderCalendar } from '../src/lib/calendar';
+import { CALENDAR_PATH, GOOGLE_ADD_BY_URL, calendarLinks, renderCalendar } from '../src/lib/calendar';
 import { addressFor, events } from '../src/data/schedule';
 
 const published = new Date('2026-09-11T15:00:00Z');
@@ -56,10 +56,11 @@ test('unknown start times are omitted even when an arrival deadline exists', () 
   assert.equal(parse(renderCalendar([source], published)).length, 0);
 });
 
-test('subscriptions use a stable feed at the public origin, including custom ports', () => {
+test('subscriptions use a stable feed and Google’s supported setup page', () => {
   const links = calendarLinks('https://crew.example.com');
-  assert.equal(links.feed, 'https://crew.example.com/schedule.ics');
-  assert.equal(links.apple, 'webcal://crew.example.com/schedule.ics');
-  assert.equal(new URL(links.google).searchParams.get('cid'), links.feed);
-  assert.equal(calendarLinks('http://localhost:5173').feed, 'http://localhost:5173/schedule.ics');
+  assert.equal(links.feed, `https://crew.example.com${CALENDAR_PATH}`);
+  assert.equal(links.apple, `webcal://crew.example.com${CALENDAR_PATH}`);
+  assert.equal(links.googleSetup, GOOGLE_ADD_BY_URL);
+  assert.doesNotMatch(links.googleSetup, /cid=/);
+  assert.equal(calendarLinks('http://localhost:5173').feed, `http://localhost:5173${CALENDAR_PATH}`);
 });

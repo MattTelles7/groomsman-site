@@ -126,7 +126,9 @@ to publish the feed.
 Subscribers see changes when their calendar app refreshes; this is not instant
 sync. The website is the latest day-of reference. Google requires initial
 subscription in a **computer web browser**, then shows the calendar on phones.
-The dialog includes a copyable URL and manual instructions for both platforms.
+Its button copies the feed and opens Google’s official **From URL** screen; the
+old `cid` one-click shortcut is unreliable and is intentionally not used. The
+dialog includes a copyable URL and manual instructions for both platforms.
 See [Google’s subscription instructions](https://support.google.com/calendar/answer/37100?hl=en),
 [Apple’s iPhone instructions](https://support.apple.com/guide/iphone/use-multiple-calendars-iph3d1110d4/ios),
 and [Apple’s refresh settings](https://support.apple.com/guide/calendar/refresh-calendars-icl1024/mac).

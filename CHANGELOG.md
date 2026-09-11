@@ -2,6 +2,8 @@
 
 ## 2026-09-11
 
+- Replaced Google’s unreliable prefilled calendar shortcut with its supported
+  From URL setup flow, after it showed an “Unable to add calendar” error.
 - Added a compact calendar control for both days, Apple/Google subscriptions,
   a copyable subscription URL, and a clearly labeled one-time download. Builds
   generate a shared iCalendar feed with stable event IDs and sourced addresses.
