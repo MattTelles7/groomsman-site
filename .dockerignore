@@ -1,0 +1,13 @@
+.git
+.github
+node_modules
+dist
+.env
+.env.*
+*.tsbuildinfo
+.DS_Store
+.sites-runtime
+docs
+README.md
+CHANGELOG.md
+AGENTS.md
