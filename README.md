@@ -1,6 +1,6 @@
 # The Groom’s Crew
 
-Chris’s groomsmen field guide for **September 24 & 26, 2026**. A responsive,
+Matt’s groomsmen field guide for **September 24 & 26, 2026**. A responsive,
 animated schedule with pastel cards, an Eastern-time wedding countdown, and
 one-tap address copying. Runs on one Debian or Ubuntu VM using Docker Compose.
 
@@ -173,5 +173,5 @@ reports failure and does not claim the deployment succeeded. See
 [deployment troubleshooting](docs/DEPLOYMENT.md#troubleshooting) for recovery.
 
 The site asks search engines not to index it, but that is not authentication.
-Only publish content you want people with the link to read. Bus payment notes
-remain in repository documentation and are not included in the web bundle.
+Only publish content you want people with the link to read. Bus payment records
+and other booking administration stay outside this public repository.

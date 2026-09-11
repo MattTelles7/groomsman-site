@@ -13,7 +13,11 @@ test('countdown uses the ceremony instant and never becomes negative', () => {
 });
 
 test('active highlight hands off at exact boundaries', () => {
-  assert.equal(currentEvent(at('12:14:59')), undefined);
+  assert.equal(currentEvent(at('07:59:59')), undefined);
+  assert.equal(currentEvent(at('08:00:00'))?.id, 'get-ready');
+  assert.equal(currentEvent(at('10:59:59'))?.id, 'get-ready');
+  assert.equal(currentEvent(at('11:00:00'))?.id, 'drive-church');
+  assert.equal(currentEvent(at('12:14:59'))?.id, 'drive-church');
   assert.equal(currentEvent(at('12:15:00'))?.id, 'meet');
   assert.equal(currentEvent(at('12:29:59'))?.id, 'meet');
   assert.equal(currentEvent(at('12:30:00'))?.id, 'groomsmen-photos');
@@ -24,17 +28,22 @@ test('active highlight hands off at exact boundaries', () => {
 });
 
 test('TBD activities have no invented live start time', () => {
-  assert.equal(eventState(event('get-ready'), at('09:00:00')), 'unscheduled');
-  assert.equal(eventState(event('drive-church'), at('12:14:59')), 'unscheduled');
-  assert.equal(eventState(event('drive-church'), at('12:15:00')), 'past');
-  assert.equal(nextEvent(at('09:00:00'))?.id, 'meet');
-  assert.equal(eventState(event('get-ready'), Date.parse('2026-09-27T00:00:00-04:00')), 'past');
+  const unscheduled = { ...event('drive-church'), start: null, end: undefined };
+  assert.equal(eventState(unscheduled, at('12:14:59')), 'unscheduled');
+  assert.equal(eventState(unscheduled, at('12:15:00')), 'past');
+  assert.equal(eventState(unscheduled, Date.parse('2026-09-27T00:00:00-04:00')), 'past');
+});
+
+test('Thursday arrival starts at 5:15 before the 5:30 rehearsal', () => {
+  assert.equal(currentEvent(Date.parse('2026-09-24T17:14:59-04:00')), undefined);
+  assert.equal(currentEvent(Date.parse('2026-09-24T17:15:00-04:00'))?.id, 'rehearsal');
+  assert.equal(currentEvent(Date.parse('2026-09-24T17:30:00-04:00'))?.id, 'rehearsal');
 });
 
 test('Thursday finishes cleanly without staying active through Saturday', () => {
   const dinner = Date.parse('2026-09-24T18:30:00-04:00');
   assert.equal(currentEvent(dinner), undefined);
-  assert.equal(nextEvent(dinner)?.id, 'meet');
+  assert.equal(nextEvent(dinner)?.id, 'get-ready');
   assert.equal(eventState(event('dinner'), dinner), 'past');
 });
 

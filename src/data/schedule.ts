@@ -3,7 +3,7 @@ export const wedding = {
   ceremony: '2026-09-26T14:00:00-04:00',
   timeZone: 'America/Indiana/Indianapolis',
   timeZoneLabel: 'Eastern time',
-  groom: 'Chris',
+  groom: 'Matt',
 };
 
 export type LocationId = 'apartment' | 'church' | 'cafe' | 'ertel' | 'hall';
@@ -21,7 +21,7 @@ export interface Venue {
 
 export const venues: Record<LocationId, Venue> = {
   apartment: {
-    name: 'Chris’s apartment',
+    name: 'Matt’s apartment',
     street: '60 Clubhouse Ln, Apt 60A',
     city: 'Fairfield, OH 45014',
   },
@@ -36,7 +36,7 @@ export const venues: Record<LocationId, Venue> = {
     name: 'Ars Café & Meeting House',
     street: '6988 N Dearborn Rd, Unit 100',
     city: 'Guilford, IN 47022',
-    note: 'Listed café address; dinner location still needs Chris’s confirmation.',
+    note: 'Confirmed rehearsal dinner location.',
     source: 'https://maps.apple.com/place?place-id=ID0244C47C81C3209',
   },
   ertel: {
@@ -74,38 +74,48 @@ export interface ScheduleEvent {
   compact?: boolean;
 }
 
+export const logistics = {
+  morning: 'Meet at Matt’s apartment at 8:00 AM. Leave at 11:00 AM and drive or carpool to St. Joseph. Budget 45 minutes for the drive plus 30 minutes for traffic, parking, and finding the school before the 12:15 PM meetup. Check traffic before leaving.',
+  bus: 'The entire wedding party rides Savannah Nite / Empire Corporate Trans bus #61 after church photos, then on to Ertel and The Hall. Use the lower lot at Ertel. Leave Ertel at 5:20 PM, 5:30 latest; bus service ends at 6:00 PM.',
+  carRetrieval: 'Cars will stay at the church. The plan for getting everyone back to collect them is still to come.',
+  locations: 'At St. Joseph, meet in the school behind the church, not the PLC. Rehearsal dinner at Ars Café is confirmed. Ertel notes that some GPS routes can be inaccurate.',
+};
+
 // Explicit UTC offsets keep the Indiana schedule correct on every guest’s device.
 // null means genuinely TBD; never invent a start time to make a countdown work.
 export const events: ScheduleEvent[] = [
   {
     id: 'rehearsal', day: 'thursday', section: 'A little practice',
-    title: 'The rehearsal', time: '5:30', period: 'PM',
-    start: '2026-09-24T17:30:00-04:00', end: '2026-09-24T18:30:00-04:00',
+    title: 'Arrive for the rehearsal', time: '5:15', period: 'PM',
+    start: '2026-09-24T17:15:00-04:00', end: '2026-09-24T18:30:00-04:00',
     category: 'essential', icon: 'church', location: 'church',
-    notes: 'Meet at the church. We’ll walk through everything for Saturday’s Mass.',
-    callout: 'The practice run',
+    notes: 'Arrive at the church at 5:15 PM so everyone is ready for the 5:30 PM rehearsal. We’ll walk through Saturday’s Mass.',
+    callout: 'Rehearsal starts at 5:30 PM',
   },
   {
     id: 'dinner', day: 'thursday', section: 'A little practice',
     title: 'Rehearsal dinner', time: '6:30', period: 'PM',
     start: '2026-09-24T18:30:00-04:00',
     category: 'celebrate', icon: 'coffee', location: 'cafe',
-    notes: 'Dinner at Ars Café. The listed address is below; exact dinner location is still being confirmed.',
-    callout: 'Location to confirm',
+    notes: 'Rehearsal dinner at Ars Café & Meeting House. Come hungry and enjoy the evening together.',
+    callout: 'Dinner confirmed',
   },
   {
     id: 'get-ready', day: 'saturday', section: 'Before the “I do”',
-    title: 'Suit up, gentlemen.', time: 'Morning',
-    start: null, category: 'prep', icon: 'shirt', location: 'apartment',
-    notes: 'Get ready together at Chris’s apartment. Start and departure times are still to come.',
-    callout: 'Time to come',
+    title: 'Suit up, gentlemen.', time: '8:00', period: 'AM',
+    start: '2026-09-26T08:00:00-04:00', end: '2026-09-26T11:00:00-04:00',
+    category: 'prep', icon: 'shirt', location: 'apartment',
+    notes: 'Get ready together at Matt’s apartment. We’ve got plenty of time to settle in and get dressed before leaving at 11:00 AM.',
+    callout: 'Meet at Matt’s',
   },
   {
     id: 'drive-church', day: 'saturday', section: 'Before the “I do”',
-    title: 'Make your way to the church', time: 'Before 12:15', period: 'PM',
-    start: null, deadline: '2026-09-26T12:15:00-04:00',
+    title: 'Make your way to the church', time: '11:00', period: 'AM',
+    start: '2026-09-26T11:00:00-04:00', end: '2026-09-26T12:15:00-04:00',
+    deadline: '2026-09-26T12:15:00-04:00',
     category: 'travel', icon: 'car', location: 'church', compact: true,
-    notes: 'Drive or carpool unless Chris says otherwise. Allow enough time to arrive by 12:15 PM; departure time is TBD.',
+    notes: 'Leave the apartment at 11:00 AM. Drive or carpool; allow 45 minutes on the road plus 30 minutes of padding for traffic, parking, and finding the school. Check traffic before leaving.',
+    callout: 'At the school by 12:15 PM',
   },
   {
     id: 'meet', day: 'saturday', section: 'Before the “I do”',
@@ -149,8 +159,9 @@ export const events: ScheduleEvent[] = [
     id: 'to-ertel', day: 'saturday', section: 'On to the celebration',
     title: 'Next stop: the vineyard', time: 'Around 4:00', period: 'PM',
     start: '2026-09-26T16:00:00-04:00', end: '2026-09-26T16:25:00-04:00', approximate: true,
-    category: 'travel', icon: 'car', location: 'ertel', compact: true,
-    notes: 'Ben Gomez rides the bus after Mass. Whether the rest of the guys drive or ride is still being decided.',
+    category: 'travel', icon: 'bus', location: 'ertel', compact: true,
+    notes: `The entire wedding party rides the bus after church photos. ${logistics.carRetrieval}`,
+    callout: 'Everyone on the bus',
   },
   {
     id: 'ertel-photos', day: 'saturday', section: 'On to the celebration',
@@ -164,8 +175,8 @@ export const events: ScheduleEvent[] = [
     id: 'leave-ertel', day: 'saturday', section: 'On to the celebration',
     title: 'Load up. Let’s celebrate.', time: '5:20', period: 'PM',
     start: '2026-09-26T17:20:00-04:00', end: '2026-09-26T17:35:00-04:00',
-    category: 'travel', icon: 'car', location: 'hall', compact: true,
-    notes: 'Leave Ertel at 5:20 PM if possible; 5:30 PM at the latest. Load up quickly and head to The Hall.',
+    category: 'travel', icon: 'bus', location: 'hall', compact: true,
+    notes: 'Everyone back on the bus. Leave Ertel at 5:20 PM if possible; 5:30 PM at the latest. Load up quickly and head to The Hall.',
     callout: '5:30 PM absolute latest',
   },
   {
@@ -181,7 +192,7 @@ export const events: ScheduleEvent[] = [
     title: 'That’s a wrap for the bus', time: '6:00', period: 'PM',
     start: '2026-09-26T18:00:00-04:00',
     category: 'prep', icon: 'bus', compact: true,
-    notes: 'Bus service ends. Only applies if you’re riding; take your belongings with you.',
+    notes: `Bus service ends. Everyone, take your belongings with you. ${logistics.carRetrieval}`,
   },
 ];
 

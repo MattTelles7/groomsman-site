@@ -37,7 +37,7 @@ Update the corresponding `venues` entry once. All associated cards use it:
 
 ```ts
 apartment: {
-  name: 'Chris’s apartment',
+  name: 'Matt’s apartment',
   street: '60 Clubhouse Ln, Apt 60A',
   city: 'Fairfield, OH 45014',
 }
@@ -78,7 +78,8 @@ TBD activities become past entries once their calendar date has passed.
 - Copy a church, apartment, and travel destination address.
 - Block clipboard access: verify the selected-address dialog and Escape.
 - Switch Thursday/Saturday with touch and keyboard arrow keys.
-- Confirm the live border switches at 12:15, 12:30, 14:00, and 15:00 Eastern.
+- Confirm the live border starts Thursday at 17:15 and switches Saturday at
+  08:00, 11:00, 12:15, 12:30, 14:00, and 15:00 Eastern.
 - Verify the countdown stops at zero when Mass starts, and the schedule wraps
   after the 18:00 bus milestone.
 - Reduced motion, 200% text/zoom, and visible keyboard focus.

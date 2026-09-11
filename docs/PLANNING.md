@@ -1,18 +1,35 @@
 # Schedule planning notes
 
-Confirmed by Chris: **Saturday, September 26, 2026**; St. Joseph in St. Leon,
+Confirmed by Matt: **Saturday, September 26, 2026**; St. Joseph in St. Leon,
 Indiana; The Hall in Batesville, Indiana; apartment at **60 Clubhouse Ln,
 Apt 60A, Fairfield, OH 45014**. Rehearsal Thursday is September 24.
 
 ## Still to settle
 
-- Apartment start and departure time. Arrive at the church by 12:15 PM.
-- Groomsmen transport after Mass. Ben Gomez will ride the bus; others TBD.
-- Confirm the actual dinner booking uses the Ars Café address found below.
+- Getting the groomsmen back to collect their cars left at the church.
+
+## Confirmed plan and morning travel budget
+
+- Thursday: arrive at the church at **5:15 PM** for the **5:30 PM** rehearsal.
+  The **6:30 PM** rehearsal dinner at Ars Café is confirmed.
+- Saturday: meet at Matt’s apartment at **8:00 AM** and leave at **11:00 AM**.
+  Drive or carpool to the church for the **12:15 PM** school-building meetup.
+- The **entire wedding party rides the bus** after church photos, to Ertel and
+  then The Hall. Cars remain at the church; retrieval arrangements are pending.
+
+Google Maps, checked September 11 for departure at 11:00 AM on September 26,
+estimates **30–40 minutes / 30.9 miles via I-275 W and I-74** from the apartment
+to St. Joseph. The alternate route is 35–45 minutes. The schedule budgets
+**45 minutes driving + 30 minutes padding = 75 minutes**, hence 11:00 AM.
+That allows for traffic, parking, and walking to the school. This is a planning
+estimate; check traffic before leaving.
+
+[Google Maps route](https://www.google.com/maps/dir/?api=1&origin=60%20Clubhouse%20Ln%2C%20Fairfield%2C%20OH%2045014&destination=St.%20Joseph%20Catholic%20Church%2C%207536%20Church%20Ln%2C%20St.%20Leon%2C%20IN%2047060&travelmode=driving)
+(choose September 26, 2026 at 11:00 AM to reproduce the forecast).
 
 Approximate times remain approximate: depart the church around 4:00 PM; Ertel
 photos start 4:25/4:30 PM; arrive at The Hall 5:35–5:45 PM. Departure from Ertel
-is 5:20 preferred, 5:30 absolute latest. No drive durations were invented.
+is 5:20 preferred, 5:30 absolute latest.
 
 ## Booking administration
 
